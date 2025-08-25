@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactsController; 
+use App\Http\Controllers\ContactsController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/contacts', [ContactsController::class, 'index']);
 Route::post('/contacts', [ContactsController::class, 'store']);
+Route::delete('/contacts/{contact}',[ContactsController::class, 'delete']);

@@ -30,4 +30,14 @@ class ContactsController extends Controller
             'data' => $contact
         ], 201);
     }
+
+    public function delete($id){
+        $contactDeleted = $this->contactService->deleteContact($id);
+
+        if($contactDeleted){
+         return response()->json(['message'=>'User Deleted Successfully!'],200);
+
+        }
+       return response()->json(['message'=>"User with id {$id} is not found"],404);
+    }
 }
