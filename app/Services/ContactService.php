@@ -25,5 +25,8 @@ public function deleteContact($id){
 public function getContactById($id){
     return $contact = Contact::find($id);
 }
+public function getContactByPhone($phone){
+  return Contact::where('phone',$phone)->first(); 
+}
 
 };

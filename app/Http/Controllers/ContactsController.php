@@ -42,7 +42,13 @@ class ContactsController extends Controller
     }
 
     public function show($id){
+             if(!ctype_digit($id)){
+                 return response()->json([
+                    'message'=>"Invalid ID format"
+        ], 400);
+    }
         $contact = $this->contactService->getContactById($id);
+     
 
         if(!$contact){
               return response()->json([
@@ -50,6 +56,21 @@ class ContactsController extends Controller
         }
         return response()->json([
             'message'=>"Contact with id {$id} found successfully",
+            'data' => $contact
+        ],200);
+
+    }
+    public function phoneFind($phoneContact){
+      
+        $contact = $this->contactService->getContactByPhone($phoneContact);
+      
+        if(!$contact){
+                return response()->json([
+                    'message'=>"Contact with phone {$phoneContact} is not found"],404);
+            
+        }
+         return response()->json([
+            'message'=>"Contact with phone {$phoneContact} found successfully",
             'data' => $contact
         ],200);
 
