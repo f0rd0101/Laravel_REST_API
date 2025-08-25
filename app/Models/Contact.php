@@ -8,7 +8,5 @@ use App\Models\User;
 class Contact extends Model
 {
     protected $fillable = ['phone','name'];
-        public function user(){
-            return $this->belongsTo(User::class);
-    }
+    
 }

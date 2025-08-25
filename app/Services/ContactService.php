@@ -9,4 +9,8 @@ public function getAllContacts(){
    return Contact::all();
 }
 
+public function createContact(array $data){
+   return Contact::create($data);
 }
+
+};
