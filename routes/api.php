@@ -9,5 +9,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/contacts', [ContactsController::class, 'index']);
+Route::get('/contacts/{contact}',[ContactsController::class,'show']);
 Route::post('/contacts', [ContactsController::class, 'store']);
 Route::delete('/contacts/{contact}',[ContactsController::class, 'delete']);
+

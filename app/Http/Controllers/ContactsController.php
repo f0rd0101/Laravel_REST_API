@@ -13,8 +13,8 @@ class ContactsController extends Controller
     }
 
     public function index(){
-        $users = $this->contactService->getAllContacts();
-        return response()->json($users);
+        $contacts = $this->contactService->getAllContacts();
+        return response()->json($contacts);
     }
     public function store(Request $request)
     {
@@ -40,4 +40,21 @@ class ContactsController extends Controller
         }
        return response()->json(['message'=>"User with id {$id} is not found"],404);
     }
+
+    public function show($id){
+        $contact = $this->contactService->getContactById($id);
+
+        if(!$contact){
+              return response()->json([
+                'message'=>"Contact with id {$id} is not found"],404);
+        }
+        return response()->json([
+            'message'=>"Contact with id {$id} found successfully",
+            'data' => $contact
+        ],200);
+
+    }
 }
+
+
+
