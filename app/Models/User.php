@@ -19,13 +19,19 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+
     protected $fillable = [
         'name',
         'email',
         'password',
 
     ];
-  
+
+     public function contacts(){
+        return $this->hasMany(Contact::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

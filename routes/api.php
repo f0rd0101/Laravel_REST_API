@@ -12,15 +12,20 @@ Route::get('/user', function (Request $request) {
 
 //========Contacts Routes============
 
+
+
+Route::middleware('auth:sanctum')->group(function () {
 Route::get('/contacts', [ContactsController::class, 'index']);
 Route::get('/contacts/phone/{phoneContact}', [ContactsController::class, 'phoneFind']);
 Route::get('/contacts/{contact}', [ContactsController::class, 'show']);
 Route::post('/contacts', [ContactsController::class, 'store']);
 Route::delete('/contacts/{contact}',[ContactsController::class, 'delete']);
-
+});
 //========Users Routes============
 
 Route::post('/register', [AuthController::class,'register']);
+Route::post('/login', [AuthController::class,'login']);
+Route::post('/logout', [AuthController::class,'logout'])->middleware('auth:sanctum');
 
 
 

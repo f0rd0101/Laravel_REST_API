@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\AuthenticationException;
 
 class AuthService{
     public function registerUser(array $validatedBody){
@@ -18,5 +19,23 @@ class AuthService{
         'accessToken'=>$token,
         'tokenType'=>'Bearer',
         ];
+    }
+
+    public function loginUser(array $validatedBody){
+        $user = User::where('email',$validatedBody['email'])->first();
+        if(!$user || !Hash::check($validatedBody['password'],$user->password)){
+        throw new AuthenticationException('The provided credentials are incorrect.');
+        }
+        $token = $user->createToken('auth_token')->plainTextToken;
+         return[
+
+        'accessToken'=>$token,
+        'tokenType'=>'Bearer',
+        ];
+
+    }
+
+    public function logoutUser($user){
+      return $user->currentAccessToken()->delete();
     }
 }
