@@ -8,7 +8,7 @@ class AuthService{
       $user = User::create([
         'name' =>$validatedBody['name'],
         'email'=>$validatedBody['email'],
-        'password'=> Hash::make($validatedBody['password']),  
+        'password'=> Hash::make($validatedBody['password']),
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
 

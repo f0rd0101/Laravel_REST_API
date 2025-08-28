@@ -24,6 +24,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (MethodNotAllowedHttpException $e,$request){
              return response()->json(['message'=>'Method is not allowed!'],405);
         });
+        $exceptions->render(function (ValidationException $e, $request) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+                    ], 422);
+});
        $exceptions->render(function (Throwable $e, $request) {
         logger($e);
         return response()->json(['message' => 'Internal server error'], 500);
