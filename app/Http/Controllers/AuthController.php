@@ -7,6 +7,7 @@ use App\Services\AuthService;
 use App\Http\Requests\RegistrationRequest;
 
 
+
 class AuthController extends Controller
 {
     protected AuthService $authService;

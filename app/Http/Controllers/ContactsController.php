@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Services\ContactService;
-
+use App\Http\Requests\StoreRequest;
 use Illuminate\Http\Request;
 class ContactsController extends Controller
 {
@@ -16,12 +16,9 @@ class ContactsController extends Controller
         $contacts = $this->contactService->getAllContacts();
         return response()->json($contacts);
     }
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:20'],
-        ]);
+        $data = $request->validated();
 
         $contact = $this->contactService->createContact($data);
 
@@ -48,7 +45,7 @@ class ContactsController extends Controller
         ], 400);
     }
         $contact = $this->contactService->getContactById($id);
-     
+
 
         if(!$contact){
               return response()->json([
@@ -61,13 +58,13 @@ class ContactsController extends Controller
 
     }
     public function phoneFind($phoneContact){
-      
+
         $contact = $this->contactService->getContactByPhone($phoneContact);
-      
+
         if(!$contact){
                 return response()->json([
                     'message'=>"Contact with phone {$phoneContact} is not found"],404);
-            
+
         }
          return response()->json([
             'message'=>"Contact with phone {$phoneContact} found successfully",
